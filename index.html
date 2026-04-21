@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trend Central</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+/* container */
+.box {
+  width: 92%;
+  max-width: 360px;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform:scale(0.95);}
+  to {opacity:1; transform:scale(1);}
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.sub {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-bottom: 15px;
+}
+
+.desc {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* card */
+.card {
+  background: #2a2a2a;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* button */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  background: #4caf50;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* loader */
+.loader {
+  display: none;
+  margin-top: 15px;
+}
+
+.text {
+  font-size: 13px;
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+
+/* progress bar */
+.progress {
+  width: 100%;
+  height: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.2);
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  width: 0%;
+  background: #4caf50;
+  transition: width 0.2s;
+}
+
+.percent {
+  font-size: 12px;
+  margin-top: 6px;
+  opacity: 0.7;
+}
+
+.footer {
+  margin-top: 18px;
+  font-size: 11px;
+  opacity: 0.5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <div class="title">Trend Central</div>
+  <div class="sub">Media Content Hub</div>
+
+  <div class="desc">
+    Konten yang sedang ramai dibahas saat ini.  
+    Klik untuk melihat detail lengkap.
+  </div>
+
+  <div class="card">
+
+    <div id="start">
+      <a href="#" class="btn" onclick="start()">Lihat Sekarang</a>
+    </div>
+
+    <div id="loader" class="loader">
+      <div class="text" id="text">Menghubungkan...</div>
+
+      <div class="progress">
+        <div class="bar" id="bar"></div>
+      </div>
+
+      <div class="percent" id="percent">0%</div>
+    </div>
+
+  </div>
+
+  <div class="footer">© 2026 MediaCoreHub</div>
+
+</div>
+
+<script>
+
+/* 🔁 ROTATOR */
+const links = [
+  "https://thorpejoy.com/gi5r2qhb41?key=bf2e66ef06dd4b382dffd31241ed7c68",
+  "https://thorpejoy.com/keixcm4smy?key=2315840c32c604f283d2954fb9999eaa"
+];
+
+function pickLink(){
+  return links[Math.floor(Math.random()*links.length)];
+}
+
+/* 🧠 TEXT VARIASI */
+const texts = [
+  "Menghubungkan...",
+  "Memuat data...",
+  "Memverifikasi akses...",
+  "Menyiapkan konten..."
+];
+
+function start(){
+  document.getElementById("start").style.display="none";
+  document.getElementById("loader").style.display="block";
+
+  let progress = 0;
+  let bar = document.getElementById("bar");
+  let percent = document.getElementById("percent");
+  let text = document.getElementById("text");
+
+  let interval = setInterval(()=>{
+    progress += Math.random()*8;
+
+    if(progress>=100){
+      progress=100;
+      clearInterval(interval);
+
+      setTimeout(()=>{
+        window.location.href = pickLink();
+      },800);
+    }
+
+    bar.style.width = progress + "%";
+    percent.innerText = Math.floor(progress)+"%";
+
+    if(Math.random()>0.7){
+      text.innerText = texts[Math.floor(Math.random()*texts.length)];
+    }
+
+  },180);
+}
+</script>
+
+</body>
+</html>
